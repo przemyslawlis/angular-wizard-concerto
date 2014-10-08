@@ -1,6 +1,6 @@
 {
   "name": "angular-wizard-concerto",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "./dist/angular-wizard.js",
   "description": "Easy to use Wizard library for AngularJS",
   "repository": {
