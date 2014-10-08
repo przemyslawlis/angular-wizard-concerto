@@ -34,7 +34,8 @@ angular.module('mgo-angular-wizard').directive('wzStep', function() {
         transclude: true,
         scope: {
             wzTitle: '@',
-            title: '@'
+            title: '@',
+            stepUid: '@'
         },
         require: '^wizard',
         templateUrl: function(element, attributes) {
@@ -57,7 +58,8 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             onFinish: '&',
             hideIndicators: '=',
             editMode: '=',
-            name: '@'
+            name: '@',
+            stepsCollection: '='
         },
         templateUrl: function(element, attributes) {
           return attributes.template || "wizard.html";
@@ -70,6 +72,10 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             });
 
             $scope.steps = [];
+            
+            $scope.$watchCollection('stepsCollection', function(){
+                $scope.steps = [];
+            });
 
             $scope.$watch('currentStep', function(step) {
                 if (!step) return;
@@ -92,9 +98,14 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
             }, true);
 
             this.addStep = function(step) {
-                $scope.steps.push(step);
-                if ($scope.steps.length === 1) {
-                    $scope.goTo($scope.steps[0]);
+                var i = this.stepIndex(step.stepUid);
+                if(i===-1){
+                    $scope.steps.push(step);
+                    if ($scope.steps.length === 1) {
+                        $scope.goTo($scope.steps[0]);
+                    }
+                } else {
+                    $scope.steps[i].title = step.title;
                 }
             };
 
@@ -118,6 +129,13 @@ angular.module('mgo-angular-wizard').directive('wizard', function() {
                 });
                 $scope.selectedStep = null;
             }
+            
+            this.stepIndex = function(stepUid){
+                for(var i=0;i<$scope.steps.length;i++){
+                    if($scope.steps[i].stepUid === stepUid) return i;
+                }
+                return -1;
+            };
 
             this.next = function(draft) {
                 var index = _.indexOf($scope.steps , $scope.selectedStep);

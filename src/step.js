@@ -5,7 +5,8 @@ angular.module('mgo-angular-wizard').directive('wzStep', function() {
         transclude: true,
         scope: {
             wzTitle: '@',
-            title: '@'
+            title: '@',
+            stepUid: '@'
         },
         require: '^wizard',
         templateUrl: function(element, attributes) {
