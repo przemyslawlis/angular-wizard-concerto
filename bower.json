@@ -1,14 +1,16 @@
 {
   "name": "angular-wizard-concerto",
-  "version": "0.5.3",
-  "main": "./dist/angular-wizard.js",
-  "description": "Easy to use Wizard library for AngularJS",
+  "version": "0.6.1-concerto",
+  "main": [
+    "./dist/angular-wizard.min.js",
+    "./dist/angular-wizard.min.css"
+  ],
+  "description": "Easy to use Wizard library for AngularJS ",
   "repository": {
     "type": "git",
     "url": "git://github.com/przemyslawlis/angular-wizard-concerto.git"
   },
   "dependencies": {
-    "lodash": ">=1.3.0 <2.5.0",
     "angular": "*"
   },
   "ignore": [

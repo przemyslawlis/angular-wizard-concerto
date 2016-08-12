@@ -5,7 +5,11 @@ angular.module('mgo-angular-wizard').directive('wzStep', function() {
         transclude: true,
         scope: {
             wzTitle: '@',
-            title: '@',
+            canenter : '=',
+            canexit : '=',
+            disabled: '@?wzDisabled',
+            description: '@',
+            wzData: '=',
             stepUid: '@'
         },
         require: '^wizard',
@@ -13,7 +17,7 @@ angular.module('mgo-angular-wizard').directive('wzStep', function() {
           return attributes.template || "step.html";
         },
         link: function($scope, $element, $attrs, wizard) {
-            $scope.title = $scope.title || $scope.wzTitle;
+            $scope.title = $scope.wzTitle;
             wizard.addStep($scope);
         }
     };
